@@ -4,7 +4,7 @@ import subprocess
 
 
 def main():
-    builtin_commands = ["exit", "echo", "type"]
+    builtin_commands = ["exit", "echo", "type", "pwd"]
     path_env = os.getenv('PATH')  # Get path string
 
     while True:
@@ -36,13 +36,14 @@ def main():
                     print(f"{command_without_type} is " + find_function_path(path_env, command_without_type))
 
 
+        elif command == "pwd":
+            print(os.getcwd())
         else: # Everything else, Base case
             parts_of_command = command.split()
             cmd = parts_of_command[0]
             args = parts_of_command[1:]
             full_function_path = find_function_path(path_env, cmd)
             if full_function_path != "Not found":
-                full_function_call = [full_function_path] + args
                 function_executable = [cmd] + args
                 result = subprocess.run(function_executable, executable=full_function_path, capture_output=True, text=True, check=False)
                 if result.stdout:
