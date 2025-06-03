@@ -51,7 +51,7 @@ def main():
 
                     # Print the actual stderr from the command
                 elif result.stderr:
-                    sys.stderr.write(result.stderr)  # Use sys.stderr.write for error output
+                    sys.stderr.write(result.stderr)
             else:
                 print(f"{command}: command not found")
 
