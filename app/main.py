@@ -4,7 +4,7 @@ import subprocess
 
 
 def main():
-    builtin_commands = ["exit", "echo", "type", "pwd"]
+    builtin_commands = ["exit", "echo", "type", "pwd", "cd"]
     path_env = os.getenv('PATH')  # Get path string
 
     while True:
@@ -38,6 +38,8 @@ def main():
 
         elif command == "pwd":
             print(os.getcwd())
+        elif command.startswith("cd ") and len(command)>len("cd "):
+            os.chdir("/")
         else:  # Everything else, Base case
             parsed_args = []
             in_quote = False
