@@ -38,19 +38,50 @@ def main():
 
         elif command == "pwd":
             print(os.getcwd())
-        else: # Everything else, Base case
-            parts_of_command = command.split()
-            cmd = parts_of_command[0]
-            args = parts_of_command[1:]
+        else:  # Everything else, Base case
+            parsed_args = []
+            in_quote = False
+            current_arg = []
+
+            for part in command.split():
+                if part.startswith('"') and not in_quote:
+                    in_quote = True
+                    current_arg.append(part[1:])  # Add content after the opening quote
+                    if part.endswith('"'):  # Handle single-word quoted arguments e.g., "word"
+                        in_quote = False
+                        parsed_args.append(
+                            " ".join(current_arg[:-1]) + " " + current_arg[-1][:-1] if len(current_arg) > 1 else
+                            current_arg[0][:-1])
+                        current_arg = []
+                elif part.endswith('"') and in_quote:
+                    in_quote = False
+                    current_arg.append(part[:-1])  # Add content before the closing quote
+                    parsed_args.append(" ".join(current_arg))
+                    current_arg = []
+                elif in_quote:
+                    current_arg.append(part)
+                else:
+                    parsed_args.append(part)
+
+            # If a quote was opened but not closed (malformed command), add the accumulated parts
+            if in_quote:
+                parsed_args.append(" ".join(current_arg))
+
+
+            if not parsed_args:  # Handle empty input after parsing
+                continue
+
+            cmd = parsed_args[0]
+            args = parsed_args[1:]
+
             full_function_path = find_function_path(path_env, cmd)
             if full_function_path != "Not found":
                 function_executable = [cmd] + args
-                result = subprocess.run(function_executable, executable=full_function_path, capture_output=True, text=True, check=False)
+                # Pass the arguments directly to subprocess.run
+                result = subprocess.run([full_function_path] + args, capture_output=True, text=True, check=False)
                 if result.stdout:
-                    sys.stdout.write(result.stdout)  # Use sys.stdout.write to print exactly what the command outputted
-
-                    # Print the actual stderr from the command
-                elif result.stderr:
+                    sys.stdout.write(result.stdout)
+                if result.stderr:  # Use 'if' to print both stdout and stderr if present
                     sys.stderr.write(result.stderr)
             else:
                 print(f"{command}: command not found")
