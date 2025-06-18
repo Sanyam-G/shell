@@ -43,7 +43,10 @@ def main():
         elif command == "cd ..":
             os.chdir("..")
         elif command.startswith("cd ") and len(command)>len("cd "):
-            os.chdir(command[len("cd "):])
+            try:
+                os.chdir(command[len("cd "):])
+            except FileNotFoundError:
+                print("no such directory, please try again")
         else:  # Everything else, Base case
             parsed_args = []
             in_quote = False
