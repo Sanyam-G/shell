@@ -8,7 +8,7 @@ def main():
     path_env = os.getenv('PATH')  # Get path string
 
     while True:
-        sys.stdout.write("$ ")
+        sys.stdout.write("$" + os.getcwd() + ": \n")
 
         # Wait for user input
         command = input()
