@@ -1,14 +1,18 @@
 import os
 import sys
 import subprocess
+import datetime
+
 
 
 def main():
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     builtin_commands = ["exit", "echo", "type", "pwd", "cd"]
     path_env = os.getenv('PATH')  # Get path string
 
     while True:
-        sys.stdout.write("$" + os.getcwd() + ": \n")
+        prompt_string = f"${os.getcwd()}                                                                                       {current_time} \n>> "
+        sys.stdout.write(prompt_string)
 
         # Wait for user input
         command = input()
@@ -85,7 +89,6 @@ def main():
 
             full_function_path = find_function_path(path_env, cmd)
             if full_function_path != "Not found":
-                function_executable = [cmd] + args
                 # Pass the arguments directly to subprocess.run
                 result = subprocess.run([full_function_path] + args, capture_output=True, text=True, check=False)
                 if result.stdout:
