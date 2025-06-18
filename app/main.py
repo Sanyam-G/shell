@@ -38,8 +38,12 @@ def main():
 
         elif command == "pwd":
             print(os.getcwd())
-        elif command.startswith("cd ") and len(command)>len("cd "):
+        elif command == "cd":
             os.chdir("/")
+        elif command == "cd ..":
+            os.chdir("..")
+        elif command.startswith("cd ") and len(command)>len("cd "):
+            os.chdir(command[len("cd "):])
         else:  # Everything else, Base case
             parsed_args = []
             in_quote = False
