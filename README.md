@@ -1,15 +1,15 @@
-# Advanced Python Shell
+# Python Shell
 
-This project is a custom shell built with Python, designed to be both powerful and user-friendly. It supports essential shell features and includes a unique analytics tool to help you understand your command usage.
+This project is a custom command-line shell implemented in Python.
 
 ## Features
 
-*   **Interactive Shell:** A familiar command-line interface.
-*   **Command Execution:** Runs built-in and external commands.
-*   **Pipes (`|`):** Chain multiple commands together.
-*   **I/O Redirection (`>`, `>>`, `<`):** Redirect input and output streams.
-*   **Command History:** Persists command history across sessions.
-*   **Usage Analytics:** Provides insights into your command patterns.
+*   **Interactive Prompt:** Provides a command-line interface for user interaction.
+*   **Command Execution:** Supports running both built-in commands and external programs.
+*   **Pipes (`|`):** Allows chaining commands, directing the output of one command as input to another.
+*   **I/O Redirection (`>`, `>>`, `<`):** Enables redirecting command input from files and output to files.
+*   **Command History:** Stores a history of executed commands.
+*   **Usage Analytics:** Provides basic statistics on command usage.
 
 ## Installation
 
@@ -37,11 +37,7 @@ python -m app.main
 *   `cd <directory>`: Change the current directory.
 *   `pwd`: Print the current working directory.
 *   `exit`: Exit the shell.
-*   `analytics`: Display command usage analytics.
-
-### Analytics
-
-The `analytics` command shows your top 10 most used commands and a bar chart visualization.
+*   `analytics`: Display command usage statistics.
 
 ## Testing
 
