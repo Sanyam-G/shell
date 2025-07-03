@@ -11,7 +11,7 @@ def main():
 
     while True:
         try:
-            prompt_string = f"{os.getcwd()} >> "
+            prompt_string = f"🚀 {os.getcwd()} >> "
             sys.stdout.write(prompt_string)
             sys.stdout.flush()
 
